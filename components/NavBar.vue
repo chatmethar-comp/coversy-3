@@ -1,6 +1,6 @@
 <template>
     <div class="flex justify-between container mx-auto">
-        <NuxtLink to="/">Coversy</NuxtLink>
+        <NuxtLink to="/" class="text-4xl font-bold uppercase">Coversy</NuxtLink>
     </div>
 </template>
 
