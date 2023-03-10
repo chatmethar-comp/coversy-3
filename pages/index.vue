@@ -1,9 +1,14 @@
 <template>
     <!-- <div :class='ColorHex ? "bg-white": "bg-black"'> -->
-    <div class="h-screen flex flex-col items-center justify-center gap-1" :class="{ 'text-white' : dark}">
+    <div class="h-screen  flex flex-col items-center justify-center gap-1" :class="{ 'text-white' : dark}">
+      <div class=" text-2xl flex flex-col items-center text-white absolute z-30 bg-red-400/70 text-bold rounded-lg sm:hidden">
+        <span class="material-icons text-8xl">
+warning
+</span>
+<div class="p-2 text-center">Unavaliable on SmartPhone please other devices</div></div>
         <video hidden id="videoInput" width="1200" height="900"></video>
         <div class="w-[400px] h-[400px] overflow-hidden flex justify-center items-center drop-shadow-xl">
-          <div v-if="ColorHex===''" class="absolute text-2xl bg-white/50 px-3 py-2 rounded-lg">Tap Somewhere</div>
+          <div v-if="ColorHex===''" @click="handleRandom" class="absolute text-2xl bg-white/50 px-3 py-2 rounded-lg">Tap Somewhere</div>
           <canvas id="canvasOutput" width="640" height="480"></canvas>
         </div>
         <div class="w-full space-y-1">
@@ -105,7 +110,7 @@ onMounted(()=>{
       // Set up the mouse callback function for the canvas
       canvas.addEventListener('click', function(event) {
         let x = event.offsetX;
-        let y = event.offsetY;
+        let y = event.offsetY; 
         let pixelData = ctx.getImageData(x, y, 1, 1).data;
         let r = pixelData[0];
         let g = pixelData[1];
@@ -132,7 +137,7 @@ const dark = computed(() => {
     const c_g = parseInt(hex.substring(2, 2 + 2), 16);
     const c_b = parseInt(hex.substring(4, 4 + 2), 16);
     const brightness = ((c_r * 299) + (c_g * 587) + (c_b * 114)) / 1000;
-    return brightness < 120;
+    return brightness < 140;
 })
 </script>
 

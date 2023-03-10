@@ -3,7 +3,7 @@
         <header class="text-4xl uppercase font-bold">Color-Picker</header>
         <video hidden id="videoInput" width="720" height="480"></video>
         <div class="relative flex justify-center items-center">
-          <div v-if="ColorHex===''" class="absolute text-2xl bg-white/50 px-3 py-2 rounded-lg">Tap Somewhere</div>
+          <div v-if="ColorHex===''" @click="handleRandom" class="absolute text-2xl bg-white/50 px-3 py-2 rounded-lg">Tap Somewhere</div>
             <canvas id="canvasOutput" width="720" height="480" class="p-4"></canvas>
         </div>
 
@@ -45,6 +45,24 @@ const ColorRGB = ref('')
 const HSV = ref('')
 const HSL = ref('')
 const CMYK = ref('')
+
+const handleRandom = () => {
+  let canvas = document.getElementById('canvasOutput');
+    let ctx = canvas.getContext('2d');
+  
+  let x = 130 + Math.floor(Math.random() * 390);
+  let y = 50 + Math.floor(Math.random() * 390);
+
+  let pixelData = ctx.getImageData(x, y, 1, 1).data;
+  let r = pixelData[0];
+  let g = pixelData[1];
+  let b = pixelData[2];
+  
+  let color_hex = "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+  ColorHex.value = color_hex;
+  document.body.style.background = ColorHex.value;
+  document.querySelector('.colored').style.background = ColorHex.value;
+}
 
 onMounted(()=>{
     let video = document.getElementById('videoInput');
